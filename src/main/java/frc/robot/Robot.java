@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -34,6 +35,14 @@ public class Robot extends TimedRobot {
   //back left motor 
   private CANSparkMax l_motor_2 = new CANSparkMax(3, MotorType.kBrushless);
 
+  //pivot motor definition 
+  private CANSparkMax pivot_motor = new CANSparkMax(4,MotorType.kBrushless);
+
+  //Joystick buttons
+  //Button to make the motor go up
+  private JoystickButton pivot_up = new JoystickButton(r_joystick, 2);
+  //Button to make the motor go down
+  private JoystickButton pivot_down = new JoystickButton(r_joystick, 3);
   //Joystick
   private Joystick r_joystick = new Joystick(1);
   private Joystick l_joystick = new Joystick(0);
@@ -53,11 +62,14 @@ r_motor_1.setIdleMode(IdleMode.kBrake);
 r_motor_2.setIdleMode(IdleMode.kBrake);
 l_motor_1.setIdleMode(IdleMode.kBrake);
 l_motor_2.setIdleMode(IdleMode.kBrake);
+//pivot motor idle mode
+pivot_motor.setIdleMode(IdleMode.kBrake);
 
 //inverting motors
 //r_motor_1.setInverted(true);
 //l_motor_1.setInverted(true);
-
+//inverting pivot motor
+//pivot_motor.setInverted(true);
 
 //make back right motor follow front right motor
 r_motor_2.follow(r_motor_1);
@@ -117,6 +129,17 @@ l_motor_2.follow(l_motor_1);
     //arcade
     r_motor_1.set(l_joystick.getY()-r_joystick.getX());
     l_motor_1.set(l_joystick.getY()+r_joystick.getX());
+
+    if (pivot_up.getAsBoolean()){
+      pivot_motor.set(0.5);
+    } else if (pivot_down.getAsBoolean()) {
+      pivot_motor.set(-0.5);
+    } else {
+      pivot_motor.set(0);
+    }
+
+      
+    
   }
 
   /** This function is called once when the robot is disabled. */
