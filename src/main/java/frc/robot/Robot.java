@@ -27,16 +27,16 @@ public class Robot extends TimedRobot {
 
   //defining drivetrain motors
   //front right motor
-  private CANSparkMax r_motor_1 = new CANSparkMax(0, MotorType.kBrushless);
+  private CANSparkMax r_motor_1 = new CANSparkMax(Constants.right_m1_id, MotorType.kBrushless);
   //back right motor
-  private CANSparkMax r_motor_2 = new CANSparkMax(1, MotorType.kBrushless);
+  private CANSparkMax r_motor_2 = new CANSparkMax(Constants.right_m2_id, MotorType.kBrushless);
   //front left motor
-  private CANSparkMax l_motor_1 = new CANSparkMax(2, MotorType.kBrushless);
+  private CANSparkMax l_motor_1 = new CANSparkMax(Constants.left_m1_id, MotorType.kBrushless);
   //back left motor 
-  private CANSparkMax l_motor_2 = new CANSparkMax(3, MotorType.kBrushless);
+  private CANSparkMax l_motor_2 = new CANSparkMax(Constants.left_m2_id, MotorType.kBrushless);
 
   //pivot motor definition 
-  private CANSparkMax pivot_motor = new CANSparkMax(4,MotorType.kBrushless);
+  private CANSparkMax pivot_motor = new CANSparkMax(Constants.pivot_motor_id,MotorType.kBrushless);
 
   //Joystick buttons
   //Button to make the motor go up
@@ -131,9 +131,9 @@ l_motor_2.follow(l_motor_1);
     l_motor_1.set(l_joystick.getY()+r_joystick.getX());
 
     if (pivot_up.getAsBoolean()){
-      pivot_motor.set(0.5);
+      pivot_motor.set(Constants.pivot_speed);
     } else if (pivot_down.getAsBoolean()) {
-      pivot_motor.set(-0.5);
+      pivot_motor.set(-Constants.pivot_speed);
     } else {
       pivot_motor.set(0);
     }
